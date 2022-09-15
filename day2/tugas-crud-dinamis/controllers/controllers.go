@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"day2/praktek6-crud-dinamis/config"
-	"day2/praktek6-crud-dinamis/lib/database"
-	"day2/praktek6-crud-dinamis/models"
+	"day2/tugas-crud-dinamis/config"
+	"day2/tugas-crud-dinamis/lib/database"
+	"day2/tugas-crud-dinamis/models"
 	"net/http"
 	"strconv"
 
@@ -57,7 +57,6 @@ func CreateUserController(c echo.Context) error {
 // delete function
 func DeleteUserController(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-
 	_, err := database.DeleteUser(uint(id))
 
 	if err != nil {

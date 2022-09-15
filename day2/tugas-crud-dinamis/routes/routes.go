@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"day2/praktek6-crud-dinamis/controllers"
+	"day2/tugas-crud-dinamis/controllers"
 
 	"github.com/labstack/echo/v4"
 )

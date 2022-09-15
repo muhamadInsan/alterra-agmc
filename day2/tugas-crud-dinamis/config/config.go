@@ -1,7 +1,7 @@
 package config
 
 import (
-	"day2/praktek5-homework/models"
+	"day2/tugas-crud-dinamis/models"
 	"fmt"
 	"log"
 	"os"

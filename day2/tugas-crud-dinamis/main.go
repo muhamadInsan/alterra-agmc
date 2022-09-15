@@ -1,8 +1,8 @@
 package main
 
 import (
-	"day2/praktek6-crud-dinamis/config"
-	"day2/praktek6-crud-dinamis/routes"
+	"day2/tugas-crud-dinamis/config"
+	"day2/tugas-crud-dinamis/routes"
 )
 
 func main() {

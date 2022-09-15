@@ -1,9 +1,8 @@
 package database
 
 import (
-	"day2/praktek6-crud-dinamis/config"
-	"day2/praktek6-crud-dinamis/models"
-	// "day2/praktek6-crud-dinamis/config"
+	"day2/tugas-crud-dinamis/config"
+	"day2/tugas-crud-dinamis/models"
 )
 
 func GetUser() (interface{}, error) {
