@@ -84,10 +84,6 @@ func UpdateUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	// 	// if err != nil {
-	// 	// 	return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	// 	// }
-
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"msg":  "success update user by id",
 		"user": users,
