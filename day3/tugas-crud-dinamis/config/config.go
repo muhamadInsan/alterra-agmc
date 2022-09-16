@@ -55,4 +55,5 @@ func init() {
 // funtion for auto migrate base on define struct
 func InitialMigration() {
 	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate((&models.Book{}))
 }
