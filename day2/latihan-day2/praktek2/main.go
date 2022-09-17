@@ -1,4 +1,4 @@
-package praktek2
+package main
 
 import (
 	"encoding/json"

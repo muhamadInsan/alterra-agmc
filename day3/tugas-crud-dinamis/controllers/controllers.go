@@ -15,13 +15,10 @@ func GetUserController(c echo.Context) error {
 	users, err := database.GetUser()
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"msg":  "success get all user",
-		"user": users,
-	})
+	return c.JSON(http.StatusOK, map[string]interface{}{"user": users})
 }
 
 // find user by id

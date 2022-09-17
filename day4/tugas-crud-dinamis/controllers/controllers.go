@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"day2/tugas-crud-dinamis/config"
-	"day2/tugas-crud-dinamis/lib/database"
-	"day2/tugas-crud-dinamis/models"
+	"day4/tugas-crud-dinamis/config"
+	"day4/tugas-crud-dinamis/lib/database"
+	"day4/tugas-crud-dinamis/models"
 	"net/http"
 	"strconv"
 
@@ -15,13 +15,10 @@ func GetUserController(c echo.Context) error {
 	users, err := database.GetUser()
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"msg":  "success get all user",
-		"user": users,
-	})
+	return c.JSON(http.StatusOK, map[string]interface{}{"user": users})
 }
 
 // find user by id
@@ -84,12 +81,39 @@ func UpdateUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	// 	// if err != nil {
-	// 	// 	return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	// 	// }
-
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"msg":  "success update user by id",
 		"user": users,
 	})
 }
+
+func LoginController(c echo.Context) error {
+	user := models.User{}
+	c.Bind(user)
+
+	token, err := database.LoginUser(&user)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"user": token,
+	})
+}
+
+// func GetUserDetailController(c echo.Context) error {
+// 	id, err := strconv.Atoi(c.Param("id"))
+// 	if err != nil {
+// 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+// 	}
+
+// 	users, err := database.GetDetailUser(uint(id))
+// 	if err != nil {
+// 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+// 	}
+
+// 	return c.JSON(http.StatusOK, map[string]interface{}{
+// 		"status": "succes",
+// 		"user":   users,
+// 	})
+// }

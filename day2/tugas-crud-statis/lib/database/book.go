@@ -1,8 +1,6 @@
 package database
 
-import (
-	"day2/praktek5-homework/models"
-)
+import "day2/tugas-crud-statis/models"
 
 func GetBook() (interface{}, error) {
 	books := []models.Book{

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"day2/praktek5-homework/lib/database"
-	"day2/praktek5-homework/models"
+	"day2/tugas-crud-statis/lib/database"
+	"day2/tugas-crud-statis/models"
 	"net/http"
 	"strconv"
 

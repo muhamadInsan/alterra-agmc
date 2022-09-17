@@ -1,13 +1,13 @@
 package routes
 
 import (
-	"day2/praktek5-homework/controllers"
+	"day2/tugas-crud-statis/controllers"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
-func Init() *echo.Echo {
+func New() *echo.Echo {
 	e := echo.New()
 
 	e.GET("/", func(c echo.Context) error {
