@@ -21,7 +21,7 @@ func InitDB() {
 		log.Fatalf("Erorr env. Err: %s", e)
 	}
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s&loc=%s",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s",
 		os.Getenv("DB_USER"),
 		// "root",
 		os.Getenv("DB_PASSWORD"),
@@ -34,7 +34,7 @@ func InitDB() {
 		// "agmc",
 		"utf8mb4",
 		"True",
-		"Local",
+		// "Local",
 	)
 
 	var err error

@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  dbd7:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db_agmc'
+      MYSQL_ROOT_PASSWORD: '1234'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+  crud-dinamis:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - 'MYSQL_ROOT_PASSWORD: 1234'
+      - 'MYSQL_USER: root'
+      - 'MYSQL_HOST: host.docker.internal'
+      - 'MYSQL_DATABASE: db_agmc'
+    depends_on:
+        - 'dbd7'

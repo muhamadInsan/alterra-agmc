@@ -1,10 +1,9 @@
-package config
+package repositories
 
 import (
-	"day4/tugas-crud-dinamis/models"
 	"fmt"
+	"hexagonal-architecture/internal/core/domain"
 	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
@@ -13,25 +12,23 @@ import (
 
 var DB *gorm.DB
 
-// init connect to mysql db
 func InitDB() {
-
 	e := godotenv.Load("lokal.env")
 	if e != nil {
-		log.Fatalf("Erorr env. Err: %s", e)
+		log.Fatalf("Error env %s", e)
 	}
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s&loc=%s",
-		os.Getenv("DB_USER"),
-		// "root",
-		os.Getenv("DB_PASSWORD"),
-		// "123456",
-		os.Getenv("DB_HOST"),
-		// "host.docker.internal",
-		os.Getenv("DB_PORT"),
-		// "3306",
-		os.Getenv("DB_NAME"),
-		// "agmc",
+		// os.Getenv("DB_USER"),
+		"root",
+		// os.Getenv("DB_PASSWORD"),
+		"123456",
+		// os.Getenv("DB_HOST"),
+		"localhost",
+		// os.Getenv("DB_PORT"),
+		"3306",
+		// os.Getenv("DB_NAME"),
+		"agmc",
 		"utf8mb4",
 		"True",
 		"Local",
@@ -54,6 +51,17 @@ func init() {
 
 // funtion for auto create table base on define struct
 func InitialMigration() {
-	DB.AutoMigrate(&models.User{})
-	DB.AutoMigrate((&models.Book{}))
+	DB.AutoMigrate(&domain.User{})
+	DB.AutoMigrate(&domain.Book{})
+}
+
+// get all user functino
+func GetUser() (interface{}, error) {
+	var users []domain.User
+
+	if err := DB.Find(&users).Error; err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }
