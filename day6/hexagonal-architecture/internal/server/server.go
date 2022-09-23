@@ -2,7 +2,6 @@ package server
 
 import (
 	"hexagonal-architecture/internal/core/ports"
-	"hexagonal-architecture/internal/repositories"
 
 	"github.com/labstack/echo/v4"
 )
@@ -22,7 +21,7 @@ func NewServer(userHandlers ports.UserHandler) *Server {
 }
 
 func (s *Server) Initialize() {
-	repositories.InitDB()
+	// repositories.DbConn()
 
 	app := echo.New()
 	v1 := app.Group("/v1")

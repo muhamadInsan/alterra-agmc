@@ -6,4 +6,4 @@ COPY . .
 # COPY *.go ./
 RUN go build -o crud-dinamis
 EXPOSE 8080
-CMD ./crud-dinamis
+# CMD ./crud-dinamis

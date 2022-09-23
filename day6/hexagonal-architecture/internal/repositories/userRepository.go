@@ -4,62 +4,51 @@ import (
 	"fmt"
 	"hexagonal-architecture/internal/core/domain"
 	"log"
+	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
-func InitDB() {
-	e := godotenv.Load("lokal.env")
-	if e != nil {
-		log.Fatalf("Error env %s", e)
-	}
-
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s&loc=%s",
-		// os.Getenv("DB_USER"),
-		"root",
-		// os.Getenv("DB_PASSWORD"),
-		"123456",
-		// os.Getenv("DB_HOST"),
-		"localhost",
-		// os.Getenv("DB_PORT"),
-		"3306",
-		// os.Getenv("DB_NAME"),
-		"agmc",
-		"utf8mb4",
-		"True",
-		"Local",
-	)
-
-	var err error
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic(err.Error())
-	}
-
-	fmt.Println("Success!")
+type DbConn struct {
+	db *gorm.DB
 }
 
-// init function execute before main function
-func init() {
-	InitDB()
-	InitialMigration()
+// NewAdapter creates a new Adapter
+func NewDbConn() *DbConn {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%s",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_NAME"),
+		"utf8mb4",
+		"True")
+
+	// connect
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatalf("db connection failur: %v", err)
+	}
+	return &DbConn{db: db}
 }
 
 // funtion for auto create table base on define struct
-func InitialMigration() {
-	DB.AutoMigrate(&domain.User{})
-	DB.AutoMigrate(&domain.Book{})
+func (c *DbConn) InitialMigration() {
+	c.db.AutoMigrate(&domain.User{})
+	c.db.AutoMigrate(&domain.Book{})
 }
 
+// func init() {
+// 	a :=
+// 	repositories.InitialMigration()
+// }
+
 // get all user functino
-func GetUser() (interface{}, error) {
+func (c *DbConn) GetUser() (interface{}, error) {
 	var users []domain.User
 
-	if err := DB.Find(&users).Error; err != nil {
+	if err := c.db.Find(&users).Error; err != nil {
 		return nil, err
 	}
 

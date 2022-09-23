@@ -9,7 +9,8 @@ import (
 func main() {
 	// mongoConn := "secret🤫"
 	//repositories
-	userRepository := repositories.InitDB()
+	userRepository := repositories.NewDbConn()
+
 	//services
 	userService := services.NewUserService(userRepository)
 	//handlers

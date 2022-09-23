@@ -2,8 +2,6 @@ package handlers
 
 import (
 	"hexagonal-architecture/internal/core/ports"
-
-	"github.com/labstack/echo/v4"
 )
 
 type UserHandlers struct {
@@ -16,6 +14,11 @@ func NewUserHandler(userService ports.UserService) *UserHandlers {
 	}
 }
 
-func (h *UserHandlers) GetUser(c echo.Context) {
+func (h *UserHandlers) GetUser() error {
+	err := h.userService.GetUser()
+	if err != nil {
+		return err
+	}
 
+	return nil
 }
